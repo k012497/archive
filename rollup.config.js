@@ -40,7 +40,15 @@ export default {
 	},
 	plugins: [
 		svelte({
-			preprocess: sveltePreprocess({ sourceMap: !production }),
+			preprocess: sveltePreprocess({ 
+				sourceMap: !production,  
+				scss: {
+					// We can use a path relative to the root because
+					// svelte-preprocess automatically adds it to `includePaths`
+					// if none is defined.
+					prependData: `@import 'src/styles/variables.scss';`
+				} 
+			}),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
@@ -79,5 +87,5 @@ export default {
 	],
 	watch: {
 		clearScreen: false
-	}
+	},
 };
